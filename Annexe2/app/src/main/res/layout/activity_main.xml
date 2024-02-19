@@ -28,23 +28,22 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintHorizontal_bias="0.104"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.178" />
+        app:layout_constraintVertical_bias="0.22" />
 
-    <EditText
+    <Spinner
         android:id="@+id/nomCompte"
-        android:layout_width="253dp"
-        android:layout_height="44dp"
-        android:ems="10"
-        android:inputType="textPersonName"
+        android:layout_width="248dp"
+        android:layout_height="35dp"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.172" />
+        app:layout_constraintVertical_bias="0.221" />
 
     <EditText
         android:id="@+id/courrielDestinataire"
@@ -73,20 +72,6 @@
         app:layout_constraintVertical_bias="0.734" />
 
     <Button
-        android:id="@+id/valider"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#838383"
-        android:text="VALIDER"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.291" />
-
-    <Button
         android:id="@+id/envoyer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -108,10 +93,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.23"
+        app:layout_constraintHorizontal_bias="0.112"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.413"
+        app:layout_constraintVertical_bias="0.366"
         tools:text="Solde:" />
 
     <View
@@ -128,16 +113,17 @@
 
     <TextView
         android:id="@+id/solde"
-        android:layout_width="199dp"
-        android:layout_height="49dp"
+        android:layout_width="228dp"
+        android:layout_height="28dp"
         android:text="0.00$"
+        android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintHorizontal_bias="0.617"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.43" />
+        app:layout_constraintVertical_bias="0.365" />
 
     <TextView
         android:id="@+id/textView5"
