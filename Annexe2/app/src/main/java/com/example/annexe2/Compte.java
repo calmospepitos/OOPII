@@ -21,4 +21,15 @@ public class Compte {
     public void setSoldeCompte(double soldeCompte) {
         this.soldeCompte = soldeCompte;
     }
+
+    // Méthodes
+    public boolean transfert(double montant) {
+        if(montant <= soldeCompte) {
+            soldeCompte -= montant;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

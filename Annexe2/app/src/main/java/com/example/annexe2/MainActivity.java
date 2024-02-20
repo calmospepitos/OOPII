@@ -1,5 +1,6 @@
 package com.example.annexe2;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.Hashtable;
+import java.util.Set;
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
     EditText champCourrielDestinataire;
     EditText champMontant;
     TextView champSolde;
+    Hashtable<String, Compte> listeComptes;
     Vector<String> choix;
+    Compte c;
+    AlertDialog.Builder boiteAlerte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +42,18 @@ public class MainActivity extends AppCompatActivity {
         champCourrielDestinataire = findViewById(R.id.courrielDestinataire);
         champMontant = findViewById(R.id.montant);
         champSolde = findViewById(R.id.solde);
+        boiteAlerte = new AlertDialog.Builder(this);
 
         df = new DecimalFormat("0.00$");
+        listeComptes = new Hashtable<>();
 
-        choix = new Vector();
-        choix.add("CHEQUE");
-        choix.add("EPARGNE");
-        choix.add("EPARGNEPLUS");
+        // Création des comptes
+        listeComptes.put("Chèque", new Compte("Chèque", 1400.00));
+        listeComptes.put("Épargne", new Compte("Épargne", 100.00));
+        listeComptes.put("Épargne Plus", new Compte("Épargne Plus", 500.00));
+        Set<String> enCles = listeComptes.keySet();
+
+        choix = new Vector<>(enCles);
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, choix);
         spinnerCompte.setAdapter(adapter);
@@ -57,25 +68,32 @@ public class MainActivity extends AppCompatActivity {
 
     // 3ème étape: Coder la classe interne
     private class Ecouteur implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-        double soldeCompte = 500.00;
+        double soldeCompte;
 
         @Override
         public void onClick(View source) {
             if (source == boutonEnvoyer) {
                 String courrielDestinataire = champCourrielDestinataire.getText().toString();
                 String montant = champMontant.getText().toString();
+
                 int value = Integer.parseInt(montant);
 
                 if (courrielDestinataire.isBlank()) {
-                    champCourrielDestinataire.setText("Indiquez un destinataire");
-                }
-                else if (value > soldeCompte) {
-                    champMontant.setText("Fonds insuffisants");
+                    boiteAlerte.setMessage("Courriel manquant").setTitle("Erreur");
+                    AlertDialog dialog = boiteAlerte.create();
+                    dialog.show();
                 }
                 else {
-                    soldeCompte -= value;
-                    champSolde.setText(df.format(soldeCompte));
-                    champMontant.setText("");
+                    if (c.transfert(value)) {
+                        boiteAlerte.setMessage("Fonds insuffisants").setTitle("Erreur");
+                        AlertDialog dialog = boiteAlerte.create();
+                        dialog.show();
+                        champMontant.setText("");
+                    }
+                    else {
+                        c.transfert(value);
+                        champSolde.setText(df.format(c.getSoldeCompte()));
+                    }
                 }
             }
         }
@@ -83,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
             String compte = choix.get(position);
+            c = listeComptes.get(compte);
+            soldeCompte = c.getSoldeCompte();
+            champSolde.setText(df.format(soldeCompte));
         }
 
         @Override

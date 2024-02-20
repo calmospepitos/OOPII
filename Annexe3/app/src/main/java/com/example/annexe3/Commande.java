@@ -16,40 +16,36 @@ public class Commande {
         listeCommande.add(p);
     }
 
-    public double total ()
-    {
-	double total = 0;
-      // compléter : total de la commande
+    public double total () {
+	    double total = 0;
 
+        // compléter : montant total de la commande
+        for (int i = 0; i < listeCommande.size(); i++) {
+            total += listeCommande.get(i).getPrixUnitaire() * listeCommande.get(i).getQte();
+        }
 
-	return total;
+	    return total;
     }
 
-    public double taxes()
-    {
+    public double taxes() {
         double taxes = 0;
   
-	// compléter : montant des taxes sur le total de la commande
+	    // compléter : montant des taxes sur le total de la commande
 
         // tps sur le montant avant taxes ( 5% )
         
-        //tvq sur le montant avant taxes ( 9.975% )
+        // tvq sur le montant avant taxes ( 9.975% )
         
         // taxes total = tps + tvq
-
-	
 
         return taxes;
     }
 
-    public double grandTotal(){
+    public double grandTotal() {
+	    double grTotal = 0;
 	
-	double grTotal = 0;
-	
-	// compléter
+	    // compléter
 
-
-	return grTotal;
-	
-
-    }}
+	    return grTotal;
+    }
+}
