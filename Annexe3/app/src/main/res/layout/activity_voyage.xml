@@ -20,57 +20,65 @@
         android:id="@+id/avion"
         android:layout_width="135dp"
         android:layout_height="204dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="184dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.424"
         app:srcCompat="@drawable/avion" />
 
     <ImageView
         android:id="@+id/hotel"
         android:layout_width="136dp"
         android:layout_height="260dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="308dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.744"
         app:srcCompat="@drawable/hotel" />
 
     <TextView
         android:id="@+id/nbAvion"
-        android:layout_width="104dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="104dp"
-        android:text="TextView"
+        android:layout_width="94dp"
+        android:layout_height="49dp"
+        android:text="0"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/nbHotel"
-        app:layout_constraintStart_toEndOf="@+id/avion" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.46" />
 
     <TextView
         android:id="@+id/nbHotel"
-        android:layout_width="103dp"
+        android:layout_width="95dp"
         android:layout_height="46dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="200dp"
-        android:text="TextView"
+        android:text="0"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/total"
-        app:layout_constraintStart_toEndOf="@+id/hotel" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.835"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.685" />
 
     <TextView
         android:id="@+id/total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="81dp"
-        android:layout_marginBottom="52dp"
+        android:layout_marginBottom="48dp"
         android:text="0.00$"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toEndOf="@+id/boutonTotal" />
 
     <Button

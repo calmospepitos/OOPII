@@ -4,16 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class Voyage extends AppCompatActivity {
     // Attributs
+    DecimalFormat df = new DecimalFormat("0.00$");
     Ecouteur ec;
-    ImageView avion, hotel;
     Commande commande;
+    Button boutonTotal;
+    ImageView avion, hotel;
     TextView total, qteAvion, qteHotel;
 
     @Override
@@ -26,6 +30,8 @@ public class Voyage extends AppCompatActivity {
         hotel = findViewById(R.id.hotel);
         qteAvion = findViewById(R.id.nbAvion);
         qteHotel = findViewById(R.id.nbHotel);
+        boutonTotal = findViewById(R.id.boutonTotal);
+        total = findViewById(R.id.total);
 
         commande = new Commande();
 
@@ -35,6 +41,7 @@ public class Voyage extends AppCompatActivity {
         // 2e étape: Inscrire la source à l'écouteur
         avion.setOnClickListener(ec);
         hotel.setOnClickListener(ec);
+        boutonTotal.setOnClickListener(ec);
     }
 
     // 3e étape: Création de la classe Ecouteur
@@ -51,6 +58,9 @@ public class Voyage extends AppCompatActivity {
                 commande.ajouterProduit(new HebergementHotel(1));
                 qteH++;
                 qteHotel.setText(Integer.toString(qteH));
+            }
+            else if (source == boutonTotal) {
+                total.setText(df.format(commande.grandTotal()));
             }
         }
     }
