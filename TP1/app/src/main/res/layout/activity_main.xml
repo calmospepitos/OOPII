@@ -8,6 +8,11 @@
     android:background="@android:color/white"
     tools:context=".MainActivity">
 
+<!--    <com.example.tp1.CustomDrawingView-->
+<!--        android:id="@+id/customDrawingView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+
     <!-- First row of icons -->
     <LinearLayout
         android:id="@+id/firstRow"
@@ -36,14 +41,48 @@
 
     </LinearLayout>
 
-    <!-- Second row of icons -->
+    <!-- First row of textViews -->
     <LinearLayout
         android:id="@+id/secondRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center"
+        android:gravity="start"
         app:layout_constraintTop_toBottomOf="@id/firstRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5">
+
+        <TextView
+            android:id="@+id/filtre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Café filtre"
+            android:textColor="#1F532A"
+            android:textSize="20sp"
+            android:layout_marginLeft="85dp"
+            app:layout_constraintHorizontal_bias="0.5"/>
+
+        <TextView
+            android:id="@+id/americano"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Americano"
+            android:textColor="#FF1F532A"
+            android:textSize="20sp"
+            android:layout_marginLeft="65dp"
+            app:layout_constraintHorizontal_bias="0.5" />
+
+    </LinearLayout>
+
+    <!-- Second row of icons -->
+    <LinearLayout
+        android:id="@+id/thirdRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/secondRow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5">
@@ -64,90 +103,181 @@
 
     </LinearLayout>
 
-    <!-- TextViews -->
-    <TextView
-        android:id="@+id/filtre"
-        android:layout_width="wrap_content"
+    <!-- Second row of textViews -->
+    <LinearLayout
+        android:id="@+id/fourthRow"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Café filtre"
-        android:textColor="#1F532A"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/firstRow"
-        app:layout_constraintStart_toStartOf="@id/firstRow"
-        android:layout_marginTop="8dp"/>
-
-    <TextView
-        android:id="@+id/americano"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Americano"
-        android:textColor="#FF1F532A"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/firstRow"
-        app:layout_constraintStart_toStartOf="@id/secondRow"
-        android:layout_marginTop="8dp"/>
-
-    <TextView
-        android:id="@+id/cafeglace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Café glacé"
-        android:textColor="#FF1F532A"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/secondRow"
-        app:layout_constraintStart_toStartOf="@id/firstRow"
-        android:layout_marginTop="8dp"/>
-
-    <TextView
-        android:id="@+id/latte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Latté"
-        android:textColor="#FF1F532A"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/secondRow"
-        app:layout_constraintStart_toStartOf="@id/secondRow"
-        android:layout_marginTop="8dp"/>
-
-    <!-- ChipGroup -->
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/chipGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/cafeglace"
+        android:orientation="horizontal"
+        android:gravity="start"
+        app:layout_constraintTop_toBottomOf="@id/thirdRow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp">
+        app:layout_constraintHorizontal_bias="0.5">
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/petitChip"
+        <TextView
+            android:id="@+id/cafeglace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/starbucksgreen"
-            android:textColor="#FFFFFF"
-            app:chipStrokeWidth="0dp"
-            app:chipCornerRadius="20dp"
-            android:text="Petit" />
+            android:text="Café glacé"
+            android:textColor="#FF1F532A"
+            android:textSize="20sp"
+            android:layout_marginLeft="80dp"/>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/moyenChip"
+        <TextView
+            android:id="@+id/latte"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/starbucksgreen"
-            android:textColor="#FFFFFF"
-            app:chipStrokeWidth="0dp"
-            app:chipCornerRadius="20dp"
-            android:text="Moyen" />
+            android:text="Latté"
+            android:textColor="#FF1F532A"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/secondRow"
+            app:layout_constraintStart_toStartOf="@id/secondRow"
+            android:layout_marginLeft="83dp"/>
 
-        <com.google.android.material.chip.Chip
-            android:id="@+id/grandChip"
+    </LinearLayout>
+
+    <!-- ChipGroup -->
+    <LinearLayout
+        android:id="@+id/chipGroupRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fourthRow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/petitChip"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/starbucksgreen"
+                android:textColor="#FFFFFF"
+                app:chipStrokeWidth="0dp"
+                app:chipCornerRadius="20dp"
+                android:checked="true"
+                android:text="Petit"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/moyenChip"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/starbucksgreen"
+                android:textColor="#FFFFFF"
+                app:chipStrokeWidth="0dp"
+                app:chipCornerRadius="20dp"
+                android:text="Moyen"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/grandChip"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/starbucksgreen"
+                android:textColor="#FFFFFF"
+                app:chipStrokeWidth="0dp"
+                app:chipCornerRadius="20dp"
+                android:text="Grand"/>
+        </com.google.android.material.chip.ChipGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/infoRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/chipGroupRow">
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" "
+            android:textColor="@color/starbucksgreen"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/ajouterButton"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/starbucksgreen"
+        android:enabled="false"
+        android:text="AJOUTER"
+        android:textSize="15sp"
+        app:cornerRadius="0sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/infoRow" />
+
+    <LinearLayout
+        android:id="@+id/listeChoixRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/ajouterButton">
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/totalRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/listeChoixRow">
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: 0$"
+            android:textColor="@color/starbucksgreen"
+            android:textSize="25sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonRow"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalRow">
+
+        <Button
+            android:id="@+id/effacerButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="1sp"
             android:backgroundTint="@color/starbucksgreen"
-            android:textColor="#FFFFFF"
-            app:chipStrokeWidth="0dp"
-            app:chipCornerRadius="20dp"
-            android:text="Grand" />
-    </com.google.android.material.chip.ChipGroup>
+            android:text="EFFACER"
+            android:textSize="15sp"
+            app:cornerRadius="0sp" />
+
+        <Button
+            android:id="@+id/commanderButton"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1.75"
+            android:backgroundTint="@color/starbucksgreen"
+            android:text="COMMANDER"
+            app:cornerRadius="0sp" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SelectedChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/starbucksgreen</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:checkMark">@drawable/crochet</item>
+    </style>
+</resources>
