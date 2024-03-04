@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.tp1.produits.Produit;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -21,7 +24,9 @@ public class MainActivity extends AppCompatActivity {
     Chip petitChip, moyenChip, grandChip;
     Button ajouterButton, commanderButton, effacerButton;
     TextView total, info;
+    LinearLayout thumbnailsLayout;
     Drawable select;
+    Toast toast;
     Commande commande;
     ListeProduits listeProduits;
     String selectedProduct;
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         petitChip = findViewById(R.id.petitChip);
         moyenChip = findViewById(R.id.moyenChip);
         grandChip = findViewById(R.id.grandChip);
+        thumbnailsLayout = findViewById(R.id.listeChoixRow);
 
         // 1ere étape: Créer une instance de Commande et ListeProduits
         commande = new Commande();
@@ -77,27 +83,46 @@ public class MainActivity extends AppCompatActivity {
             if (source instanceof ImageView) {
                 ImageView imageView = (ImageView) source;
                 selectedProduct = imageView.getTag().toString();
+                select = imageView.getDrawable();
             }   // Si clique sur un chip
             else if (source instanceof Chip) {
                 Chip chip = (Chip) source;
-                selectedSize = chip.getText().toString();
-                ajouterButton.setEnabled(true); // Enable le bouton "Ajouter"
+                // Prévenir une déselection d'une taille
+                if (chip.getTag().toString() == selectedSize) {
+                    chip.setChecked(true);
+                }
+                else {
+                    selectedSize = chip.getText().toString();
+                }
             } // Si clique sur le bouton ajouter
             else if (source == ajouterButton) {
+                ImageView i = new ImageView(MainActivity.this);
+                i.setImageDrawable(select);
+                i.setLayoutParams(new LinearLayout.LayoutParams(80, 80));
+                thumbnailsLayout.addView(i);
+
                 Produit produit = listeProduits.recupererProduit(selectedProduct + " " + selectedSize);
                 commande.ajouterBoisson(produit, selectedSize);
                 updateTotal();
             } // Si clique sur le bouton commander
             else if (source == commanderButton) {
                 // Handle the "Commander" button click
-                // Add your logic here to handle the order submission
+                double totalAmount = calculateTotalWithTaxes(commande.getTotal());
+                String message = "Paiement de " + df.format(totalAmount) + "$ en cours";
+                toast = Toast.makeText(getApplicationContext(), "Commande envoyée\n" + message, Toast.LENGTH_LONG);
+                toast.show();
+                commande.resetCommande();
+                thumbnailsLayout.removeAllViews();
+                updateTotal();
             } // Si clique sur le bouton effacer
             else if (source == effacerButton) {
                 commande.resetCommande();
+                thumbnailsLayout.removeAllViews();
                 updateTotal();
                 ajouterButton.setEnabled(false); // Disable le bouton "Ajouter"
             }
 
+            // Si un produit et une taille sélectionnés -> update les infos
             if (selectedProduct != null && selectedSize != null) {
                 Produit produit = listeProduits.recupererProduit(selectedProduct + " " + selectedSize);
                 if (produit != null) {
@@ -105,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     String infoText = selectedProduct + " " + produit.getCalories(selectedSize) + " cal " + priceFormatted;
                     info.setText(infoText);
                 }
+                ajouterButton.setEnabled(true); // Enable le bouton "Ajouter"
             }
         }
     }

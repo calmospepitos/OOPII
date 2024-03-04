@@ -52,7 +52,7 @@
             android:id="@+id/filtre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="85dp"
+            android:layout_marginLeft="86dp"
             android:text="Café filtre"
             android:textColor="#1F532A"
             android:textSize="20sp"
@@ -78,7 +78,6 @@
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/secondRow">
 
@@ -115,7 +114,7 @@
             android:id="@+id/cafeglace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="81dp"
             android:text="Café glacé"
             android:textColor="#FF1F532A"
             android:textSize="20sp" />
@@ -154,9 +153,10 @@
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:checked="true"
+                android:tag="Petit"
                 android:text="Petit"
                 android:textColor="#FFFFFF"
-                app:chipCornerRadius="20dp"
+                app:chipCornerRadius="30dp"
                 app:chipIconVisible="true"
                 app:chipStrokeWidth="0dp" />
 
@@ -164,9 +164,10 @@
                 android:id="@+id/moyenChip"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
+                android:tag="Moyen"
                 android:text="Moyen"
                 android:textColor="#FFFFFF"
-                app:chipCornerRadius="20dp"
+                app:chipCornerRadius="30dp"
                 app:chipIconVisible="true"
                 app:chipStrokeWidth="0dp" />
 
@@ -174,10 +175,11 @@
                 android:id="@+id/grandChip"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
+                android:tag="Grand"
                 android:text="Grand"
                 android:textColor="#FFFFFF"
                 app:checkedIconVisible="true"
-                app:chipCornerRadius="20dp"
+                app:chipCornerRadius="30dp"
                 app:chipStrokeWidth="0dp" />
         </com.google.android.material.chip.ChipGroup>
 
@@ -195,7 +197,7 @@
             android:id="@+id/info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=" "
+            android:text=""
             android:textColor="@color/starbucksgreen"
             android:textSize="15sp" />
     </LinearLayout>
@@ -207,7 +209,6 @@
         android:backgroundTint="@color/starbucksgreen"
         android:enabled="false"
         android:text="AJOUTER"
-        android:textSize="15sp"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -218,14 +219,9 @@
         android:id="@+id/listeChoixRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/ajouterButton">
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        app:layout_constraintTop_toBottomOf="@id/ajouterButton"
+        android:orientation="horizontal">
 
     </LinearLayout>
 
@@ -259,11 +255,10 @@
             android:id="@+id/effacerButton"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginEnd="1sp"
+            android:layout_marginEnd="2dp"
             android:layout_weight="1"
             android:backgroundTint="@color/starbucksgreen"
-            android:text="EFFACER"
-            android:textSize="15sp"/>
+            android:text="EFFACER"/>
 
         <Button
             android:id="@+id/commanderButton"
@@ -271,8 +266,7 @@
             android:layout_height="60dp"
             android:layout_weight="1.75"
             android:backgroundTint="@color/starbucksgreen"
-            android:text="COMMANDER"
-            tools:ignore="DuplicateIds" />
+            android:text="COMMANDER"/>
     </LinearLayout>
 
 
