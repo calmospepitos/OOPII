@@ -1,6 +1,8 @@
 package com.example.tp1;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Chip petitChip, moyenChip, grandChip;
     Button ajouterButton, commanderButton, effacerButton;
     TextView total, info;
+    Drawable select;
     Commande commande;
     ListeProduits listeProduits;
     String selectedProduct;
@@ -49,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         listeProduits = new ListeProduits();
         df = new DecimalFormat("0.00");
 
+        // Set petitChip comme sélectionné par défaut
+        petitChip.setChecked(true);
+        selectedSize = "Petit";
+
         // 2e étape: Créer un écouteur pour les éléments de l'interface
         ec = new Ecouteur();
         filtreIcon.setOnClickListener(ec);
@@ -65,39 +72,15 @@ public class MainActivity extends AppCompatActivity {
 
     // 3e étape: Créer une classe Ecouteur pour gérer les événements
     private class Ecouteur implements View.OnClickListener {
-        boolean imageSelected = false;
-        boolean chipSelected = false;
         public void onClick(View source) {
-            if (imageSelected && chipSelected) {
-                String infoText = selectedProduct + " " + selectedProduct.get + " " + selectedSize;
-                info.setText(infoText);
-            }
-
             // Si clique sur une image
-            if (source == filtreIcon || source == americanoIcon || source == glaceIcon || source == latteIcon) {
-                if (source == filtreIcon) {
-                    selectedProduct = "Café filtre";
-                }
-                else if (source == americanoIcon) {
-                    selectedProduct = "Americano";
-                }
-                else if (source == glaceIcon) {
-                    selectedProduct = "Café glacé";
-                }
-                else if (source == latteIcon) {
-                    selectedProduct = "Latté";
-                }
+            if (source instanceof ImageView) {
+                ImageView imageView = (ImageView) source;
+                selectedProduct = imageView.getTag().toString();
             }   // Si clique sur un chip
-            else if (source == petitChip || source == moyenChip || source == grandChip) {
-                if (source == petitChip) {
-                    selectedSize = "Petit";
-                }
-                else if (source == moyenChip) {
-                    selectedSize = "Moyen";
-                }
-                else if (source == grandChip) {
-                    selectedSize = "Grand";
-                }
+            else if (source instanceof Chip) {
+                Chip chip = (Chip) source;
+                selectedSize = chip.getText().toString();
                 ajouterButton.setEnabled(true); // Enable le bouton "Ajouter"
             } // Si clique sur le bouton ajouter
             else if (source == ajouterButton) {
@@ -113,6 +96,15 @@ public class MainActivity extends AppCompatActivity {
                 commande.resetCommande();
                 updateTotal();
                 ajouterButton.setEnabled(false); // Disable le bouton "Ajouter"
+            }
+
+            if (selectedProduct != null && selectedSize != null) {
+                Produit produit = listeProduits.recupererProduit(selectedProduct + " " + selectedSize);
+                if (produit != null) {
+                    String priceFormatted = df.format(produit.getPrix(selectedSize)) + "$";
+                    String infoText = selectedProduct + " " + produit.getCalories(selectedSize) + " cal " + priceFormatted;
+                    info.setText(infoText);
+                }
             }
         }
     }

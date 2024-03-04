@@ -1,4 +1,4 @@
-package com.example.tp1;
+package com.example.pratique;
 
 import org.junit.Test;
 
