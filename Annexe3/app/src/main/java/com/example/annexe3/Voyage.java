@@ -64,5 +64,4 @@ public class Voyage extends AppCompatActivity {
             }
         }
     }
-
 }
