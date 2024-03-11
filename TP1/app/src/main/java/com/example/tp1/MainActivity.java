@@ -1,5 +1,6 @@
 package com.example.tp1;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.drawable.Drawable;
@@ -9,8 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.example.tp1.produits.Produit;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
     TextView total, info;
     LinearLayout thumbnailsLayout;
     Drawable select;
-    Toast toast;
     Commande commande;
     ListeProduits listeProduits;
     String selectedProduct;
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         // 1ere étape: Créer une instance de Commande et ListeProduits
         commande = new Commande();
         listeProduits = new ListeProduits();
-        df = new DecimalFormat("0.00");
+        df = new DecimalFormat("0.00$");
 
         // Set petitChip comme sélectionné par défaut
         petitChip.setChecked(true);
@@ -108,9 +106,13 @@ public class MainActivity extends AppCompatActivity {
             else if (source == commanderButton) {
                 // Handle the "Commander" button click
                 double totalAmount = calculateTotalWithTaxes(commande.getTotal());
-                String message = "Paiement de " + df.format(totalAmount) + "$ en cours";
-                toast = Toast.makeText(getApplicationContext(), "Commande envoyée\n" + message, Toast.LENGTH_LONG);
-                toast.show();
+                String message = "Paiement de " + df.format(totalAmount) + " en cours...";
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Commande envoyée")
+                        .setMessage(message)
+                        .setPositiveButton(android.R.string.ok, null)
+                        .show();
+
                 commande.resetCommande();
                 thumbnailsLayout.removeAllViews();
                 updateTotal();
@@ -126,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
             if (selectedProduct != null && selectedSize != null) {
                 Produit produit = listeProduits.recupererProduit(selectedProduct + " " + selectedSize);
                 if (produit != null) {
-                    String priceFormatted = df.format(produit.getPrix(selectedSize)) + "$";
+                    String priceFormatted = df.format(produit.getPrix(selectedSize));
                     String infoText = selectedProduct + " " + produit.getCalories(selectedSize) + " cal " + priceFormatted;
                     info.setText(infoText);
                 }
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         // Update le total des achats incluant les taxes
         double totalAmount = commande.getTotal();
         double totalWithTaxes = calculateTotalWithTaxes(totalAmount);
-        total.setText("Total: " + df.format(totalWithTaxes) + "$");
+        total.setText("Total: " + df.format(totalWithTaxes));
     }
 
     private double calculateTotalWithTaxes(double totalAmount) {
