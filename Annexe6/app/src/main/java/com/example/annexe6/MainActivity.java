@@ -21,12 +21,12 @@ public class MainActivity extends AppCompatActivity {
 
         parent = findViewById(R.id.parent);
 
-        // 1
+        // Étape 1
         surf = new Surface(this);
-        // 2
+        // Étape 2
         surf.setLayoutParams(new ConstraintLayout.LayoutParams(-1, -1)); // -1,-1 est la même chose que MATCH_PARENT, MATCH_PARENT
         surf.setBackgroundColor(Color.RED);
-        // 3
+        // Étape 3
         parent.addView(surf);
     }
 
