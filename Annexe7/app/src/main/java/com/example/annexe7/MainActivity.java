@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.Surface;
@@ -16,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     ConstraintLayout parent;
     Surface surf;
+    Point depart, arrivee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,57 +28,57 @@ public class MainActivity extends AppCompatActivity {
 
         // Étape 1
         surf = new Surface(this);
+        // Étape 2
+        surf.setLayoutParams(new ConstraintLayout.LayoutParams(-1,-1));
+        surf.setBackgroundResource(R.drawable.carte);
         // Étape 3
         parent.addView(surf);
+
+        // Gestion des evenements
+        Ecouteur ec = new Ecouteur();
+        surf.setOnTouchListener(ec);
+    }
+
+    private class Ecouteur implements View.OnTouchListener {
+        @Override
+        public boolean onTouch(View source, MotionEvent motionEvent) {
+            if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                depart = new Point((int)motionEvent.getX(), (int)motionEvent.getY());
+                surf.invalidate();
+            }
+            else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                arrivee = new Point((int)motionEvent.getX(), (int)motionEvent.getY());
+                surf.invalidate();
+            }
+            else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                depart = null;
+                arrivee = null;
+            }
+
+            return true; // Très important
+        }
     }
 
     private class Surface extends View {
-        Bitmap backgroundImage;
-        Paint paint;
-        boolean isFirstTouch = true;
-        int start_x, start_y, end_x, end_y;
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         public Surface(Context context) {
             super(context);
 
-            // Set the background image
-            setBackgroundResource(R.drawable.carte);
-
             // Initialize paint for drawing the red square
-            paint = new Paint();
             paint.setColor(Color.RED);
-            paint.setStyle(Paint.Style.STROKE);
-            paint.setStrokeWidth(5);
+            paint.setStrokeWidth(15);
         }
 
         @Override
-        protected void OnDraw(Canvas canvas) {
+        protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
-            // Draw the background image on the canvas
-            canvas.drawBitmap(backgroundImage, 0, 0, null);
-            // Draw the square if touched for the first time
-            if (!isFirstTouch) {
-                canvas.drawRect(start_x, start_y, end_x, end_y, paint);
+            if (depart != null) {
+                canvas.drawRect(depart.x - 30, depart.y - 30, depart.x + 30, depart.y + 30, paint);
             }
-
-        }
-
-        @Override
-        public boolean onTouchEvent(MotionEvent event) {
-            int action = event.getActionMasked();
-            switch (action) {
-                case MotionEvent.ACTION_DOWN:
-                    if (isFirstTouch) {
-                        start_x = event.getX();
-                        start_y = event.getY();
-                        end_x = event.getX();
-                        end_y = event.getY();
-                        isFirstTouch = false;
-                    }
-                    invalidate();
-                    return true;
-                default:
-                    return super.onTouchEvent(event);
+            else if (arrivee != null) {
+                canvas.drawRect(arrivee.x - 30, arrivee.y - 30, arrivee.x + 30, arrivee.y + 30, paint);
+                canvas.drawLine(depart.x, depart.y, arrivee.x, arrivee.y, paint);
             }
         }
     }
