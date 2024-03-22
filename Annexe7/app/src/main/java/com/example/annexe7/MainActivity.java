@@ -73,10 +73,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
+
             if (depart != null) {
                 canvas.drawRect(depart.x - 30, depart.y - 30, depart.x + 30, depart.y + 30, paint);
             }
-            else if (arrivee != null) {
+            if (arrivee != null) {
                 canvas.drawRect(arrivee.x - 30, arrivee.y - 30, arrivee.x + 30, arrivee.y + 30, paint);
                 canvas.drawLine(depart.x, depart.y, arrivee.x, arrivee.y, paint);
             }
