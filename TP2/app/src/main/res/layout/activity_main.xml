@@ -1,18 +1,189 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Barre de couleurs -->
+    <LinearLayout
+        android:id="@+id/barre_couleurs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/grey"
+        android:paddingVertical="5dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/blackButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/black"
+            android:tag="#FF00000" />
+
+        <Button
+            android:id="@+id/brownButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/brown"
+            android:tag="#4E3D2E" />
+
+        <Button
+            android:id="@+id/yellowButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/yellow"
+            android:tag="#FFFFFF00" />
+
+        <Button
+            android:id="@+id/orangeButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/orange"
+            android:tag="#EC5E00" />
+
+        <Button
+            android:id="@+id/redButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/red"
+            android:tag="#FFFF0000" />
+
+        <Button
+            android:id="@+id/blueButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/blue"
+            android:tag="#FF0000FF" />
+    </LinearLayout>
+
+    <!-- Zone de dessin -->
+    <LinearLayout
+        android:id="@+id/dessin"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <!-- Barre d'outils -->
+    <HorizontalScrollView
+        android:id="@+id/bare_outils"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/crayon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/crayon"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/trait"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/largeur_trait"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/efface"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/efface"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/cercle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/cercle"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/triangle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/triangle"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/rectangle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/rectangle"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/fill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/remplir"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/pipette"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/pipette"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/palette"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/palette"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/undo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/undo"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/redo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/redo"
+                android:layout_marginEnd="5dp"/>
+
+            <ImageView
+                android:id="@+id/enregistrer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/enregistrer" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+</LinearLayout>
