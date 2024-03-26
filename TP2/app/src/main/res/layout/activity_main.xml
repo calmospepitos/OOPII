@@ -74,12 +74,11 @@
 
     <!-- Zone de dessin -->
     <LinearLayout
-        android:id="@+id/dessin"
+        android:id="@+id/drawingView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="horizontal">
-
     </LinearLayout>
 
     <!-- Barre d'outils -->
