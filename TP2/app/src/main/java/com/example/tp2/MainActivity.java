@@ -22,10 +22,11 @@ public class MainActivity extends AppCompatActivity {
     LinearLayout drawingView;
     Button blackButton, brownButton, yellowButton, orangeButton, redButton, blueButton;
     ImageView crayon, trait, efface, cercle, triangle, rectangle, fill, pipette, palette, undo, redo, enregistrer;
-    Stack<Path> paths;
+    Stack<TraceLibre> stack;
+    TraceLibre traceLibre;
     Boolean isTraceLibre = false, isOval = false, isTriangle = false, isRectangle = false, isFill = false, isPipette = false, isPalette = false;
-    String couleur;
-    int trait_epaisseur;
+    int couleur = Color.BLACK;
+    int trait_epaisseur = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         drawingView.addView(surf);
 
         // Initialisation des path Stacks
-        paths = new Stack<>();
+        stack = new Stack<>();
 
         // 3e étape: Gestion des événements
         // Clique sur les boutons
@@ -92,29 +93,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View source) {
             if (source instanceof Button) {
-                switch(source.getId()) {
-                    case R.id.blackButton:
-                        couleur = blackButton.getTag().toString();
-                        break;
-                    case R.id.brownButton:
-                        couleur = brownButton.getTag().toString();
-                        break;
-                    case R.id.yellowButton:
-                        couleur = yellowButton.getTag().toString();
-                        break;
-                    case R.id.orangeButton:
-                        couleur = orangeButton.getTag().toString();
-                        break;
-                    case R.id.redButton:
-                        couleur = redButton.getTag().toString();
-                        break;
-                    case R.id.blueButton:
-                        couleur = blueButton.getTag().toString();
-                        break;
-                }
+                couleur = Color.parseColor(source.getTag().toString());
             }
             else if (source == crayon) {
-                TraceLibre trace = new TraceLibre(couleur, trait_epaisseur);
+                isTraceLibre = !isTraceLibre;
             }
             else if (source == trait) {
                 // Faire défiler les valeurs d'épaisseur de trait entre mince, moyen et large
@@ -163,37 +145,37 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (isTraceLibre && event.getAction() == MotionEvent.ACTION_DOWN) {
-                Path path = new Path();
-                path.moveTo(event.getX(), event.getY());
-                paths.push(path);
-                surf.invalidate();
-                return true;
-            } else if (isTraceLibre && event.getAction() == MotionEvent.ACTION_MOVE) {
-                paths.peek().lineTo(event.getX(), event.getY());
+                traceLibre = new TraceLibre(couleur, trait_epaisseur);
+                traceLibre.startLine(event.getX(), event.getY());
                 surf.invalidate();
                 return true;
             }
-            return false;
+            else if (isTraceLibre && event.getAction() == MotionEvent.ACTION_MOVE) {
+                traceLibre.continueLine(event.getX(), event.getY());
+                surf.invalidate();
+                return true;
+            }
+            else if (isTraceLibre && event.getAction() == MotionEvent.ACTION_UP) {
+                stack.push(traceLibre);
+            }
+            return true;
         }
     }
 
     public class Surface extends View {
-        // Création du crayon
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
         public Surface(Context context) {
             super(context);
-
-            // Initialisation du crayon
-            paint.setColor(Color.parseColor(blackButton.getTag().toString()));
-            paint.setStrokeWidth(10);
         }
 
         @Override
         protected void onDraw(Canvas canvas) {
             super.onDraw(canvas);
-            for (Path path : paths) {
-                canvas.drawPath(path, paint);
+
+            for (TraceLibre traceLibre : stack) {
+                traceLibre.draw(canvas);
+            }
+            if (traceLibre != null) {
+                traceLibre.draw(canvas);
             }
         }
     }

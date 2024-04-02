@@ -9,17 +9,16 @@ public class TraceLibre {
     private Path path;
     private Paint paint;
 
-    public TraceLibre(String couleur, int trait_epaisseur) {
+    public TraceLibre(int couleur, int trait_epaisseur) {
         path = new Path();
         paint = new Paint();
-        paint.setColor(Color.parseColor(couleur));
+        paint.setColor(couleur);
         paint.setStrokeWidth(trait_epaisseur);
         paint.setStyle(Paint.Style.STROKE);
         paint.setAntiAlias(true);
     }
 
     public void startLine(float x, float y) {
-        path.reset();
         path.moveTo(x, y);
     }
 
