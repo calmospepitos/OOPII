@@ -65,11 +65,21 @@ public class PlacementActivity extends AppCompatActivity {
                 creerAlertDialog("Le montant doit être supérieur à 0");
                 return;
             }
-            // 3. Calculer le montant final
-            Placement placement = new Placement(montantDouble, nbMois);
-            double montantFinal = placement.calculerMontantFinal();
-            // 4. Afficher le montant final
-            labelReponse.setText("Montant final : " + d.format(montantFinal));
+
+            // try-catching the NumberFormatException
+            try {
+                // 3. Calculer le montant final
+                Placement placement = new Placement(montantDouble, nbMois);
+                double montantFinal = placement.calculerMontantFinal();
+                // 4. Afficher le montant final
+                labelReponse.setText("Montant final : " + d.format(montantFinal));
+            }
+            catch (RuntimeException nfe){
+                champMontant.setText("");
+                creerAlertDialog("Le montant doit être un nombre" + champMontant.getText().toString());
+                champMontant.setHint("Ex: 1000 ou 1000.00");
+                champMontant.requestFocus();
+            }
         }
     }
 
