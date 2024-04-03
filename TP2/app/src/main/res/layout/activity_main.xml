@@ -9,68 +9,93 @@
     tools:context=".MainActivity">
 
     <!-- Barre de couleurs -->
-    <LinearLayout
+    <HorizontalScrollView
         android:id="@+id/barre_couleurs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/grey"
-        android:paddingVertical="5dp">
+        android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/blackButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/black"
-            android:tag="#FF00000" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:paddingVertical="5dp">
 
-        <Button
-            android:id="@+id/brownButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/brown"
-            android:tag="#4E3D2E" />
+            <Button
+                android:id="@+id/blackButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/black"
+                android:tag="#FF000000" />
 
-        <Button
-            android:id="@+id/yellowButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/yellow"
-            android:tag="#FFFFFF00" />
+            <Button
+                android:id="@+id/greenButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/green"
+                android:tag="#2C9E23" />
 
-        <Button
-            android:id="@+id/orangeButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/orange"
-            android:tag="#EC5E00" />
+            <Button
+                android:id="@+id/yellowButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/yellow"
+                android:tag="#FFFFFF00" />
 
-        <Button
-            android:id="@+id/redButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/red"
-            android:tag="#FFFF0000" />
+            <Button
+                android:id="@+id/orangeButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/orange"
+                android:tag="#EC5E00" />
 
-        <Button
-            android:id="@+id/blueButton"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginRight="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/blue"
-            android:tag="#FF0000FF" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/redButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/red"
+                android:tag="#FFFF0000" />
+
+            <Button
+                android:id="@+id/blueButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/blue"
+                android:tag="#FF0000FF" />
+
+            <Button
+                android:id="@+id/whiteButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:tag="#FFFFFFFF" />
+
+            <Button
+                android:id="@+id/brownButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/brown"
+                android:tag="#745335" />
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
 
     <!-- Zone de dessin -->
     <LinearLayout
@@ -94,27 +119,31 @@
 
             <ImageView
                 android:id="@+id/crayon"
+                android:tag="Crayon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/crayon"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginEnd="5dp" />
 
             <ImageView
                 android:id="@+id/trait"
+                android:tag="Trait"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/largeur_trait"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginEnd="5dp" />
 
             <ImageView
                 android:id="@+id/efface"
+                android:tag="Efface"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/efface"
                 android:layout_marginEnd="5dp"/>
 
             <ImageView
-                android:id="@+id/cercle"
+                android:id="@+id/oval"
+                android:tag="Oval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/cercle"
@@ -122,6 +151,7 @@
 
             <ImageView
                 android:id="@+id/triangle"
+                android:tag="Triangle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/triangle"
@@ -129,6 +159,7 @@
 
             <ImageView
                 android:id="@+id/rectangle"
+                android:tag="Rectangle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/rectangle"
@@ -136,6 +167,7 @@
 
             <ImageView
                 android:id="@+id/fill"
+                android:tag="Fill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -144,6 +176,7 @@
 
             <ImageView
                 android:id="@+id/pipette"
+                android:tag="Pipette"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -152,6 +185,7 @@
 
             <ImageView
                 android:id="@+id/palette"
+                android:tag="Palette"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -160,6 +194,7 @@
 
             <ImageView
                 android:id="@+id/undo"
+                android:tag="Undo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -168,6 +203,7 @@
 
             <ImageView
                 android:id="@+id/redo"
+                android:tag="Redo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -176,6 +212,7 @@
 
             <ImageView
                 android:id="@+id/enregistrer"
+                android:tag="Enregistrer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
