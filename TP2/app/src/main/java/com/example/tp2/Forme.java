@@ -5,11 +5,11 @@ import android.graphics.Paint;
 import android.graphics.Path;
 
 public abstract class Forme {
-    // Attributes
+    // Attributs
     protected Path path;
     protected Paint paint;
 
-    // Constructor
+    // Constructeur
     public Forme(int couleur, int trait_epaisseur) {
         path = new Path();
         paint = new Paint();
@@ -19,16 +19,12 @@ public abstract class Forme {
         paint.setAntiAlias(true);
     }
 
-    // Methods
+    // Méthodes à extend
     public void draw(Canvas canvas) {
         canvas.drawPath(path, paint);
     }
 
-    public void startLine(float x, float y) {
-        path.moveTo(x, y);
-    }
+    public abstract void startLine(float x, float y);
 
-    public void continueLine(float x, float y) {
-        path.lineTo(x, y);
-    }
+    public abstract void continueLine(float x, float y);
 }
