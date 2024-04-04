@@ -92,6 +92,15 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/brown"
                 android:tag="#745335" />
+
+            <Button
+                android:id="@+id/videButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/grey"
+                android:tag="#B3B3B3" />
         </LinearLayout>
 
     </HorizontalScrollView>
