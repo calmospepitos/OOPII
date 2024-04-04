@@ -4,7 +4,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 
-public abstract class Forme {
+public abstract class Forme { // Superclasse abstraite Forme
     // Attributs
     protected Path path;
     protected Paint paint;
@@ -19,11 +19,11 @@ public abstract class Forme {
         paint.setAntiAlias(true);
     }
 
-    // Méthodes à extend
     public void draw(Canvas canvas) {
         canvas.drawPath(path, paint);
     }
 
+    // Méthodes à Override
     public abstract void startLine(float x, float y);
 
     public abstract void continueLine(float x, float y);

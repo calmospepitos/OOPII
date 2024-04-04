@@ -26,14 +26,15 @@ public class Oval extends Forme {
         endX = x;
         endY = y;
 
+        // Calcul du rectangle englobant l'ovale
         float left = Math.min(startX, endX);
         float right = Math.max(startX, endX);
         float top = Math.min(startY, endY);
         float bottom = Math.max(startY, endY);
 
-        boundingBox = new RectF(left, top, right, bottom);
+        boundingBox = new RectF(left, top, right, bottom); // Rectangle englobant
 
         path.reset();
-        path.addOval(boundingBox, Path.Direction.CW);
+        path.addOval(boundingBox, Path.Direction.CW); // Ajout de l'ovale
     }
 }

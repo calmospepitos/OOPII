@@ -24,6 +24,7 @@ public class Rectangle extends Forme {
         float top = Math.min(startY, y);
         float bottom = Math.max(startY, y);
 
+        // Ajout du rectangle
         path.reset();
         path.addRect(left, top, right, bottom, Path.Direction.CW);
     }

@@ -26,6 +26,7 @@ public class Triangle extends Forme {
         endX = x;
         endY = y;
 
+        // Calcul du triangle
         path.reset();
         path.moveTo(startX, startY);
         path.lineTo((startX + endX) / 2, endY);

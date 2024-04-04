@@ -2,24 +2,28 @@ package com.example.tp2;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
-
+import android.widget.Toast;
+import android.Manifest;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     Button blackButton, greenButton, yellowButton, orangeButton, redButton, blueButton, whiteButton, brownButton, videButton;
     ImageView crayon, trait, efface, oval, triangle, rectangle, fill, pipette, palette, undo, redo, enregistrer;
     Stack<Forme> stack;
+    Stack<Forme> undoStack;
     String isSelected = null;
 
     // Les objets tracés
@@ -82,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialisation des path Stacks
         stack = new Stack<>();
+        undoStack = new Stack<>();
 
         // 3e étape: Gestion des événements
         // Clique sur les boutons
@@ -115,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             if (source instanceof Button) { // Si clique sur une couleur
                 couleur = Color.parseColor(source.getTag().toString());
             }
-            else if (source == fill) {
+            else if (source == fill) { // Si clique sur le bouton de remplissage
                 // Change la couleur du canvas
                 backgroundColor = couleur;
                 surf.setBackgroundColor(backgroundColor);
@@ -127,17 +133,36 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            else if (source == trait) {
+            else if (source == trait) { // Si clique sur le bouton de trait
                 showThicknessDialog();
             }
-            else {
+            else if (source == undo) { // Si clique sur le bouton retour
+                if (!stack.isEmpty()) {
+                    Forme lastAction = stack.pop(); // Pop the last action from the regular stack
+                    undoStack.push(lastAction); // Push it onto the undo stack
+                    surf.invalidate(); // Redraw the canvas
+                }
+            }
+            else if (source == redo) { // Si clique sur le bouton refaire
+                if (!undoStack.isEmpty()) {
+                    Forme lastUndoAction = undoStack.pop(); // Pop the last action from the undo stack
+                    stack.push(lastUndoAction); // Push it onto the regular stack
+                    surf.invalidate(); // Redraw the canvas
+                }
+            }
+            else if (source == enregistrer) { // Si clique sur le bouton enregistrer
+                // A faire en bonus
+            }
+            else if (source == palette) {
+                // A faire en bonus
+            }
+            else { // Si clique sur les autres boutons
                 isSelected = source.getTag().toString();
             }
         }
 
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            Log.d("SelectedShape", "isSelected: " + isSelected);
             if (isSelected != null) {
                 switch (isSelected) {
                     case "Crayon":
@@ -164,9 +189,8 @@ public class MainActivity extends AppCompatActivity {
 
                             // Utilise la couleur récupérée
                             couleur = pixelColor;
-                            videButton.setTag(couleur);
-                            videButton.setBackgroundTintList(ColorStateList.valueOf(couleur));
-                            // TODO: Mettez à jour l'interface avec la nouvelle couleur
+                            videButton.setTag(couleur); // Change le tag pour la couleur du bouton
+                            videButton.setBackgroundTintList(ColorStateList.valueOf(couleur)); // Change la couleur du bouton
                         }
                         break;
                 }
@@ -175,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Méthode qui s'occupe de dessiner les lignes des formes
+    // Méthode qui s'occupe de dessiner les lignes de toutes les formes
     private <T extends Forme> T handleDrawingEvent(T currentShape, Class<T> shapeClass, MotionEvent event) {
         T updatedShape = currentShape;
 
@@ -191,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                 surf.invalidate();
             }
             catch (Exception e) {
-                e.printStackTrace();
+                e.printStackTrace(); // Affiche l'erreur
             }
         }
         else if (event.getAction() == MotionEvent.ACTION_MOVE) { // Bouge la souris
@@ -211,11 +235,11 @@ public class MainActivity extends AppCompatActivity {
     // Boite de dialogue pour choisir la largeur de trait des crayons
     private void showThicknessDialog() {
         // Choix de largeur de trait
-        CharSequence[] items = {"Mince", "Moyen", "Large"};
+        CharSequence[] epaisseurs = {"Mince", "Moyen", "Large"}; // Les options
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Sélectionnez l'épaisseur du trait");
-        builder.setItems(items, new DialogInterface.OnClickListener() {
+        builder.setItems(epaisseurs, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
                 switch (item) {
                     case 0:
@@ -272,10 +296,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Méthode qui trouve la couleur du pixel où tu clique
         public int getPixelColor(int x, int y) {
-            Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(bitmap);
-            draw(canvas);
-            return bitmap.getPixel(x, y);
+            Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888); // Crée un bitmap
+            Canvas canvas = new Canvas(bitmap); // Crée un canvas du bitmap
+            draw(canvas); // Dessine sur le canvas
+            return bitmap.getPixel(x, y); // Retourne la couleur du pixel
         }
     }
 
