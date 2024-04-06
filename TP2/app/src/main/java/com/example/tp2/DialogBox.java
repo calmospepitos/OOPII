@@ -36,7 +36,7 @@ public class DialogBox extends Dialog {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // Update le textView avec la valeur de l'épaisseur du trait
                 TextView textView = findViewById(R.id.textView);
-                textView.setText("Largeur du trait: " + progress + "px");
+                textView.setText("Largeur du trait : " + progress + "px");
             }
 
             @Override
