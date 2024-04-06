@@ -10,11 +10,11 @@
 
     <!-- Barre de couleurs -->
     <HorizontalScrollView
-        android:id="@+id/barre_couleurs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/barre_couleurs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/grey"
@@ -29,6 +29,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/black"
                 android:tag="#FF000000" />
+
 
             <Button
                 android:id="@+id/greenButton"
@@ -67,6 +68,15 @@
                 android:tag="#FFFF0000" />
 
             <Button
+                android:id="@+id/pinkButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/pink"
+                android:tag="#FF4AE7" />
+
+            <Button
                 android:id="@+id/blueButton"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
@@ -76,15 +86,6 @@
                 android:tag="#FF0000FF" />
 
             <Button
-                android:id="@+id/whiteButton"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginRight="5dp"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:tag="#FFFFFFFF" />
-
-            <Button
                 android:id="@+id/brownButton"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
@@ -92,6 +93,16 @@
                 android:layout_weight="1"
                 android:backgroundTint="@color/brown"
                 android:tag="#745335" />
+
+
+            <Button
+                android:id="@+id/whiteButton"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/white"
+                android:tag="#FFFFFFFF" />
 
             <Button
                 android:id="@+id/videButton"
@@ -117,12 +128,12 @@
 
     <!-- Barre d'outils -->
     <HorizontalScrollView
-        android:id="@+id/bare_outils"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="5dp">
 
         <LinearLayout
+            android:id="@+id/barre_outils"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"

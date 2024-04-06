@@ -27,26 +27,26 @@ import java.io.IOException;
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
-    Ecouteur ec;
-    Surface surf;
-    LinearLayout drawingView;
-    Button blackButton, greenButton, yellowButton, orangeButton, redButton, blueButton, whiteButton, brownButton, videButton;
-    ImageView crayon, trait, efface, oval, triangle, rectangle, fill, pipette, palette, undo, redo, enregistrer;
-    Stack<Forme> stack;
-    Stack<Forme> undoStack;
-    String isSelected = null;
+    private Ecouteur ec;
+    private Surface surf;
+    private LinearLayout drawingView, barreOutils, barreCouleurs;
+    private Button blackButton, greenButton, yellowButton, orangeButton, redButton, pinkButton, blueButton, whiteButton, brownButton, videButton;
+    private ImageView crayon, trait, efface, oval, triangle, rectangle, fill, pipette, palette, undo, redo, enregistrer;
+    private DialogBox dialogBox;
+    private Stack<Forme> stack, undoStack;
+    private String isSelected = null;
 
     // Les objets tracés
-    TraceLibre traceLibreLine;
-    Efface effaceLine;
-    Rectangle rectangleLine;
-    Triangle triangleLine;
-    Oval ovalLine;
+    private TraceLibre traceLibreLine;
+    private Efface effaceLine;
+    private Rectangle rectangleLine;
+    private Triangle triangleLine;
+    private Oval ovalLine;
 
     // Attributs des crayons
-    int couleur = Color.BLACK; // Valeur de défaut est noir
-    int backgroundColor = Color.WHITE; // Valeur de défaut est blanc
-    int trait_epaisseur = 10; // Valeur de défaut est 10px
+    private int couleur = Color.BLACK; // Valeur de défaut est noir
+    private int backgroundColor = Color.WHITE; // Valeur de défaut est blanc
+    private int trait_epaisseur = 10; // Valeur de défaut est 10px
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +54,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Initialise les éléments de l'interface
+        barreCouleurs = findViewById(R.id.barre_couleurs);
+        barreOutils = findViewById(R.id.barre_outils);
         drawingView = findViewById(R.id.drawingView);
         blackButton = findViewById(R.id.blackButton);
         greenButton = findViewById(R.id.greenButton);
         yellowButton = findViewById(R.id.yellowButton);
         orangeButton = findViewById(R.id.orangeButton);
         redButton = findViewById(R.id.redButton);
+        pinkButton = findViewById(R.id.pinkButton);
         blueButton = findViewById(R.id.blueButton);
         whiteButton = findViewById(R.id.whiteButton);
         brownButton = findViewById(R.id.brownButton);
@@ -85,34 +88,26 @@ public class MainActivity extends AppCompatActivity {
         surf.setLayoutParams(new ConstraintLayout.LayoutParams(-1,-1));
         drawingView.addView(surf);
 
+        // Initialisation du dialogBox
+        dialogBox = new DialogBox(this, new DialogBox.OnThicknessSelectedListener() {
+            @Override
+            public void onThicknessSelected(int thickness) {
+                trait_epaisseur = thickness;
+            }
+        });
+
         // Initialisation des path Stacks
         stack = new Stack<>();
         undoStack = new Stack<>();
 
         // 3e étape: Gestion des événements
-        // Clique sur les boutons
-        blackButton.setOnClickListener(ec);
-        greenButton.setOnClickListener(ec);
-        yellowButton.setOnClickListener(ec);
-        orangeButton.setOnClickListener(ec);
-        redButton.setOnClickListener(ec);
-        blueButton.setOnClickListener(ec);
-        whiteButton.setOnClickListener(ec);
-        brownButton.setOnClickListener(ec);
-        crayon.setOnClickListener(ec);
-        trait.setOnClickListener(ec);
-        efface.setOnClickListener(ec);
-        oval.setOnClickListener(ec);
-        triangle.setOnClickListener(ec);
-        rectangle.setOnClickListener(ec);
-        fill.setOnClickListener(ec);
-        pipette.setOnClickListener(ec);
-        palette.setOnClickListener(ec);
-        undo.setOnClickListener(ec);
-        redo.setOnClickListener(ec);
-        enregistrer.setOnClickListener(ec);
-        // Touch sur la surface de dessin
-        surf.setOnTouchListener(ec);
+        for (int i = 0; i < barreCouleurs.getChildCount(); i++) { // Écouteurs des couleurs
+            barreCouleurs.getChildAt(i).setOnClickListener(ec);
+        }
+        for (int i = 0; i < barreOutils.getChildCount(); i++) { // Écouteurs des outils
+            barreOutils.getChildAt(i).setOnClickListener(ec);
+        }
+        surf.setOnTouchListener(ec); // Touch sur la surface de dessin
     }
 
     private class Ecouteur implements View.OnClickListener, View.OnTouchListener {
@@ -134,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             else if (source == trait) { // Si clique sur le bouton de trait
-                showThicknessDialog();
+                dialogBox.show();
             }
             else if (source == undo) { // Si clique sur le bouton retour
                 if (!stack.isEmpty()) {
@@ -189,9 +184,11 @@ public class MainActivity extends AppCompatActivity {
 
                             // Utilise la couleur récupérée
                             couleur = pixelColor;
-                            videButton.setTag(couleur); // Change le tag pour la couleur du bouton
+                            videButton.setTag("#" + Integer.toHexString(couleur)); // Change le tag pour la couleur du bouton
                             videButton.setBackgroundTintList(ColorStateList.valueOf(couleur)); // Change la couleur du bouton
                         }
+                        break;
+                    default:
                         break;
                 }
             }
@@ -199,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Méthode qui s'occupe de dessiner les lignes de toutes les formes
+    // Méthode qui s'occupe de dessiner les lignes de toutes les Formes
     private <T extends Forme> T handleDrawingEvent(T currentShape, Class<T> shapeClass, MotionEvent event) {
         T updatedShape = currentShape;
 
@@ -230,32 +227,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return updatedShape;
-    }
-
-    // Boite de dialogue pour choisir la largeur de trait des crayons
-    private void showThicknessDialog() {
-        // Choix de largeur de trait
-        CharSequence[] epaisseurs = {"Mince", "Moyen", "Large"}; // Les options
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Sélectionnez l'épaisseur du trait");
-        builder.setItems(epaisseurs, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                switch (item) {
-                    case 0:
-                        trait_epaisseur = 10;
-                        break;
-                    case 1:
-                        trait_epaisseur = 20;
-                        break;
-                    case 2:
-                        trait_epaisseur = 40;
-                        break;
-                }
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
     }
 
     public class Surface extends View {
