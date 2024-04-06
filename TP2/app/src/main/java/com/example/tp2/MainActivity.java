@@ -9,23 +9,25 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity {
+    // Attributs
     private Ecouteur ec;
     private Surface surf;
     private LinearLayout drawingView, barreOutils, barreCouleurs;
     private Button videButton;
-    private ImageView crayon, trait, efface, oval, triangle, rectangle, fill, palette, undo, redo, enregistrer;
     private DialogBox dialogBox;
     private Stack<Forme> stack, undoStack;
     private String isSelected = null;
+
+    // Attributs des crayons
+    private int couleur = Color.BLACK; // Valeur de défaut est noir
+    private int couleurFond = Color.WHITE; // Valeur de défaut est blanc
+    private int trait_epaisseur = 10; // Valeur de défaut est 10px
 
     // Les objets tracés
     private TraceLibre traceLibreLine;
@@ -34,32 +36,16 @@ public class MainActivity extends AppCompatActivity {
     private Triangle triangleLine;
     private Oval ovalLine;
 
-    // Attributs des crayons
-    private int couleur = Color.BLACK; // Valeur de défaut est noir
-    private int couleurFond = Color.WHITE; // Valeur de défaut est blanc
-    private int trait_epaisseur = 10; // Valeur de défaut est 10px
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialise les éléments de l'interface
+        // Initialisation des éléments de l'interface
         barreCouleurs = findViewById(R.id.barre_couleurs);
         barreOutils = findViewById(R.id.barre_outils);
         drawingView = findViewById(R.id.drawingView);
         videButton = findViewById(R.id.videButton);
-        crayon = findViewById(R.id.crayon);
-        trait = findViewById(R.id.trait);
-        efface = findViewById(R.id.efface);
-        oval = findViewById(R.id.oval);
-        triangle = findViewById(R.id.triangle);
-        rectangle = findViewById(R.id.rectangle);
-        fill = findViewById(R.id.fill);
-        palette = findViewById(R.id.palette);
-        undo = findViewById(R.id.undo);
-        redo = findViewById(R.id.redo);
-        enregistrer = findViewById(R.id.enregistrer);
 
         // 1ere étape: Créer une instance de Ecouteur
         ec = new Ecouteur();
@@ -69,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         surf.setLayoutParams(new ConstraintLayout.LayoutParams(-1,-1));
         drawingView.addView(surf);
 
+        // Initialisation des Stacks
+        stack = new Stack<>();
+        undoStack = new Stack<>();
+
         // Initialisation du dialogBox
         dialogBox = new DialogBox(this, new DialogBox.OnThicknessSelectedListener() {
             @Override
@@ -76,10 +66,6 @@ public class MainActivity extends AppCompatActivity {
                 trait_epaisseur = thickness;
             }
         });
-
-        // Initialisation des path Stacks
-        stack = new Stack<>();
-        undoStack = new Stack<>();
 
         // 3e étape: Gestion des événements
         surf.setOnTouchListener(ec); // Touch sur la surface de dessin
@@ -90,10 +76,12 @@ public class MainActivity extends AppCompatActivity {
     private class Ecouteur implements View.OnClickListener, View.OnTouchListener {
         @Override
         public void onClick(View source) {
+            String choix = source.getTag().toString();
+
             if (source instanceof Button) { // Si clique sur une couleur
                 couleur = Color.parseColor(source.getTag().toString());
             }
-            else if (source == fill) { // Si clique sur le bouton de remplissage
+            else if (choix.equals("Fill")) { // Si clique sur le bouton de remplissage
                 // Change la couleur du canvas
                 couleurFond = couleur;
                 surf.setBackgroundColor(couleurFond);
@@ -105,27 +93,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-            else if (source == trait) { // Si clique sur le bouton de trait
+            else if (choix.equals("Trait")) { // Si clique sur le bouton de trait
                 dialogBox.show();
             }
-            else if (source == undo) { // Si clique sur le bouton retour
-                if (!stack.isEmpty()) {
-                    Forme lastAction = stack.pop(); // Pop the last action from the regular stack
-                    undoStack.push(lastAction); // Push it onto the undo stack
-                    surf.invalidate(); // Redraw the canvas
-                }
-            }
-            else if (source == redo) { // Si clique sur le bouton refaire
-                if (!undoStack.isEmpty()) {
-                    Forme lastUndoAction = undoStack.pop(); // Pop the last action from the undo stack
-                    stack.push(lastUndoAction); // Push it onto the regular stack
-                    surf.invalidate(); // Redraw the canvas
-                }
-            }
-            else if (source == enregistrer) { // Si clique sur le bouton enregistrer
+            else if (choix.equals("Undo")) { // Si clique sur le bouton retour
                 // A faire en bonus
             }
-            else if (source == palette) {
+            else if (choix.equals("Redo")) { // Si clique sur le bouton refaire
+                // A faire en bonus
+            }
+            else if (choix.equals("Enregistrer")) { // Si clique sur le bouton enregistrer
+                // A faire en bonus
+            }
+            else if (choix.equals("Palette")) {
                 // A faire en bonus
             }
             else { // Si clique sur les autres boutons
@@ -188,23 +168,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Si dessine avec TraceLibre
-            if (traceLibreLine != null && isSelected == crayon.getTag().toString()) {
+            if (traceLibreLine != null && isSelected.equals("Crayon")) {
                 traceLibreLine.draw(canvas);
             }
             // Si dessine avec Efface
-            if (effaceLine != null && isSelected == efface.getTag().toString()) {
+            if (effaceLine != null && isSelected.equals("Efface")) {
                 effaceLine.draw(canvas);
             }
             // Si dessine un Oval
-            if (ovalLine != null && isSelected == oval.getTag().toString()) {
+            if (ovalLine != null && isSelected.equals("Oval")) {
                 ovalLine.draw(canvas);
             }
             // Si dessine un triangle
-            if (triangleLine != null && isSelected == triangle.getTag().toString()) {
+            if (triangleLine != null && isSelected.equals("Triangle")) {
                 triangleLine.draw(canvas);
             }
             // Si dessine avec Rectangle
-            if (rectangleLine != null && isSelected == rectangle.getTag().toString()) {
+            if (rectangleLine != null && isSelected.equals("Rectangle")) {
                 rectangleLine.draw(canvas);
             }
         }
