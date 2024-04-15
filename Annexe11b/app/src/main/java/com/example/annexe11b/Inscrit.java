@@ -1,6 +1,5 @@
 package com.example.annexe11b;
 
-import java.util.Hashtable;
 import bla.HashtableAssociation;
 
 public class Inscrit {
@@ -26,17 +25,5 @@ public class Inscrit {
         this.capitale = capitale;
         this.etat = etat;
         this.codeZip = codeZip;
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

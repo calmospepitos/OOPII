@@ -14,7 +14,6 @@ public class AdresseException extends Exception {
     public String getCapitale() {
         return capitale;
     }
-
     public String getEtat() {
         return etat;
     }

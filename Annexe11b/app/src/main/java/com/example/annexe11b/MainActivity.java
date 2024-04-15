@@ -8,12 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.app.AlertDialog;
-
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Set;
 import java.util.Vector;
-
 import bla.HashtableAssociation;
 
 public class MainActivity extends AppCompatActivity {
