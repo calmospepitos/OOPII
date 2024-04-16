@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+
+<Spinner
+android:id="@+id/spinner"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_marginTop="24dp"
+android:layout_weight="1.2"
+android:contentDescription="type d'objet" />
+
+<TextView
+android:id="@+id/texteCouleur"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_marginTop="25dp"
+android:layout_weight="1"
+android:gravity="center_horizontal"
+android:text="Couleur de l'item :"
+android:textSize="20sp" />
+
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_weight="2"
+android:orientation="horizontal">
+
+<Button
+    android:id="@+id/boutonRouge"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:backgroundTint="#E91E63"
+    android:text="Rouge" />
+
+<Button
+    android:id="@+id/boutonVert"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+    android:backgroundTint="#4CAF50"
+    android:text="Vert" />
+</LinearLayout>
+
+<TextView
+android:id="@+id/texteLargeur"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_marginTop="25dp"
+android:layout_weight="1"
+android:gravity="center_horizontal"
+android:text="Largeur :"
+android:textSize="20sp" />
+
+<SeekBar
+android:id="@+id/seekBar"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_marginTop="20dp"
+android:layout_weight="1"
+android:max="10"
+android:progress="3" />
+
+<Button
+android:id="@+id/boutonApercu"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_marginTop="30dp"
+android:layout_weight="2"
+android:text="Apercu" />
+
+<androidx.constraintlayout.widget.ConstraintLayout
+android:id="@+id/conteneur"
+android:layout_width="match_parent"
+android:layout_height="0dp"
+android:layout_weight="5">
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
