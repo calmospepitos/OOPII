@@ -39,7 +39,10 @@ public class GestionBD extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        // Supprimer la table inventeur
+        db.execSQL("DROP TABLE IF EXISTS inventeur");
+        // Recréer la table inventeur
+        onCreate(db);
     }
 
     public void ajouterInventeur(Inventeur inventeur, SQLiteDatabase db) {
