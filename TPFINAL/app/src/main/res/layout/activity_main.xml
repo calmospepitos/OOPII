@@ -112,8 +112,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:gravity="center|bottom"
-            android:layout_marginBottom="20dp">
+            android:gravity="center|bottom">
 
             <LinearLayout
                 android:layout_width="125dp"
@@ -147,8 +146,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:gravity="center|bottom"
-            android:layout_marginBottom="20dp">
+            android:gravity="center|bottom">
 
             <LinearLayout
                 android:layout_width="125dp"
@@ -177,6 +175,13 @@
         </LinearLayout>
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/retour"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        app:srcCompat="@android:drawable/ic_menu_revert" />
+
     <!--  Suites croissantes  -->
     <LinearLayout
         android:id="@+id/suites_croissantes"
@@ -191,8 +196,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:gravity="center|top"
-            android:layout_marginTop="20dp">
+            android:gravity="center|top">
 
             <LinearLayout
                 android:layout_width="125dp"
@@ -226,8 +230,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:gravity="center|top"
-            android:layout_marginTop="20dp">
+            android:gravity="center|top">
 
             <LinearLayout
                 android:layout_width="125dp"
@@ -266,6 +269,7 @@
 
         <!-- Première ligne -->
         <LinearLayout
+            android:id="@+id/ligne1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -355,6 +359,7 @@
 
         <!-- Deuxième ligne -->
         <LinearLayout
+            android:id="@+id/ligne2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
