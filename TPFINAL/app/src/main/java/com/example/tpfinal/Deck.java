@@ -1,9 +1,10 @@
 package com.example.tpfinal;
 
+import android.view.View;
 import android.widget.TextView;
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class Deck {
@@ -34,6 +35,7 @@ public class Deck {
         List<Carte> twoCards = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             twoCards.add(drawCard());
+            cartes.remove(twoCards.get(i));
         }
         return twoCards;
     }
@@ -44,11 +46,25 @@ public class Deck {
         }
     }
 
+    public void afficheNouvellesCartes(List<Carte> newCards, TextView[] cartes, HashMap<TextView, Carte> carteMap) {
+        for (TextView carte : cartes) {
+            if (carte.getVisibility() == View.INVISIBLE) {
+                Carte newCard = newCards.remove(0);
+                carte.setText(String.valueOf(newCard.getValeur()));
+                carte.setVisibility(View.VISIBLE);
+                carteMap.put(carte, newCard);
+                if (newCards.isEmpty()) {
+                    break;
+                }
+            }
+        }
+    }
+
     public void setDernierMouvement(Carte carte, Carte derniereCarte, TextView originalView, TextView targetView) {
         dernierMouvement = new Mouvement(carte, derniereCarte, originalView, targetView);
     }
 
-    public Mouvement getLastMove() {
+    public Mouvement getDernierMouvement() {
         return dernierMouvement;
     }
 }

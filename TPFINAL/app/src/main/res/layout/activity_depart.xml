@@ -13,7 +13,7 @@
         android:layout_marginBottom="20dp"
         android:text="97 CARTES"
         android:textColor="@color/beige"
-        android:textSize="40sp"
+        android:textSize="50sp"
         android:textStyle="bold" />
 
     <Button
@@ -24,13 +24,14 @@
         android:textColor="@color/brown"
         android:text="COMMENCER"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:layout_marginBottom="20dp"/>
 
     <TextView
         android:id="@+id/highScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HIGH SCORE: 0"
+        android:text="HIGHSCORE: 0"
         android:textColor="@color/beige"
         android:textSize="20sp"/>
 

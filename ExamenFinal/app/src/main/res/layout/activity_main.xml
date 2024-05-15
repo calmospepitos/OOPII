@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/texteQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Dessinez le drapeau de la :"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/drapeauContenants"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:background="#070707"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/conteneurGauche"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="#F4F3F3"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/conteneurCentre"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="#F4F3F3"
+            android:orientation="vertical"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/conteneurDroite"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="2dp"
+            android:layout_weight="1"
+            android:background="#F4F3F3"
+            android:orientation="vertical" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/barreCouleurs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:gravity="center_horizontal|center_vertical">
+
+        <TextView
+            android:id="@+id/bleu"
+            android:tag="bleu"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#3949AB" />
+
+        <TextView
+            android:id="@+id/blanc"
+            android:tag="blanc"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#FAF7F7"/>
+
+        <TextView
+            android:id="@+id/rouge"
+            android:tag="rouge"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#F30808" />
+
+        <TextView
+            android:id="@+id/noir"
+            android:tag="noir"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#050505" />
+
+        <TextView
+            android:id="@+id/jaune"
+            android:tag="jaune"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="#FFB300" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/boutonConfirmer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Confirmer" />
+    </LinearLayout>
+</LinearLayout>

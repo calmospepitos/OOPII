@@ -25,18 +25,23 @@ public class Suite {
     }
 
     public boolean canAddCarte(Carte carte) {
+        // Si la suite est vide, on peut ajouter n'importe quelle carte
         if (cartes.isEmpty()) {
             return true;
         }
+        // Si la suite n'est pas vide, on vérifie si la carte peut être ajoutée
         int lastCardValue = cartes.get(cartes.size() - 1).getValeur();
-        if (Math.abs(carte.getValeur() - lastCardValue) == 10) {
-            return true;
-        }
         if (isIncreasing) {
-            return carte.getValeur() > lastCardValue;
+            if (lastCardValue - carte.getValeur() == 10) {
+                return true;
+            }
+            return carte.getValeur() > lastCardValue; // La carte doit être plus grande
         }
         else {
-            return carte.getValeur() < lastCardValue;
+            if (carte.getValeur() - lastCardValue == 10) {
+                return true;
+            }
+            return carte.getValeur() < lastCardValue;  // La carte doit être plus petite
         }
     }
 

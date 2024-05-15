@@ -2,6 +2,7 @@ package com.example.tpfinal;
 
 import android.view.View;
 import android.widget.TextView;
+import java.util.HashMap;
 
 public class Mouvement {
     private Carte carte;
@@ -16,26 +17,17 @@ public class Mouvement {
         this.targetView = targetView;
     }
 
-    public TextView getOriginalView() {
-        return originalView;
-    }
+    public void annulerDernierMouvement(HashMap<TextView, Carte> carteMap, HashMap<TextView, Suite> suiteMap, Partie partie) {
+        Suite targetSuite = suiteMap.get(targetView);
+        if (targetSuite != null && derniereCarte != null) {
+            // Ajouter la carte à la suite d'origine
+            targetSuite.getCartes().remove(carte);
+            originalView.setVisibility(View.VISIBLE);
+            targetView.setText(String.valueOf(derniereCarte.getValeur()));
+            carteMap.put(originalView, carte);
 
-    public TextView getTargetView() {
-        return targetView;
+            // Update le score
+            partie.undoLastScore();
+        }
     }
-
-    public Carte getCarte() {
-        return carte;
-    }
-
-    public Carte getDerniereCarte() {
-        return derniereCarte;
-    }
-
-    public void annulerDernierMouvement() {
-        originalView.setText(String.valueOf(carte.getValeur()));
-        originalView.setVisibility(View.VISIBLE);
-        targetView.setText("");
-    }
-
 }
