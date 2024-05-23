@@ -1,18 +1,14 @@
 package com.example.tpfinal;
 
 import android.content.Intent;
-import android.util.Log;
 import android.widget.Chronometer;
-import android.widget.TextView;
-
-import java.util.HashMap;
 
 public class Partie {
     // Attributs
     private MainActivity mainActivity;
     private SingletonDatabase db;
     private Chronometer chronometer, chronometerCoups;
-    private int totalScore, lastScore, cartesRestantesCount;
+    private int totalScore, lastScore;
     private boolean scoreInserted;
 
     // Constructeur
@@ -51,7 +47,6 @@ public class Partie {
     }
 
     public void regardeFinPartie(int cartesRestantesCount) {
-        Log.d("Partie", "cartesRestantesCount: " + cartesRestantesCount + ", isMouvementPossible: " + mainActivity.isMouvementPossible());
         if (!mainActivity.isMouvementPossible() || cartesRestantesCount == 0) {
             // Insère le score dans la base de données
             if (!scoreInserted) {
